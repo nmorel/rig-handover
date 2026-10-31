@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-10-31
 ---
 
 # Morning digest
@@ -77,3 +78,22 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue | Blocked by | Worker | Closed |
+|---|-------|-----------|--------|--------|
+| 1 | Digest types: DigestRow and readNight signature | — | claude-code · sonnet-5.5 · medium | 2026-10-31 |
+| 2 | Run log reader: readNight | #1 | claude-code · sonnet-5.5 · medium | 2026-10-31 |
+| 3 | Digest page: GET /digest/:night | #1 | claude-code · sonnet-5.5 · medium | 2026-10-31 |
+| 4 | Digest JSON: GET /api/digest/:night | #1 | claude-code · sonnet-5.5 · medium | 2026-10-31 |
+| 5 | Board links each night to its digest | #1 | claude-code · sonnet-5.5 · medium | 2026-10-31 |
+| 6 | Route tests for digest page and JSON | #1 | claude-code · sonnet-5.5 · medium | 2026-10-31 |
+| 7 | Preview for review | #3 | claude-code · opus-5.5 · default | 2026-10-31 |
+| 8 | Clean up the preview's lane marker | #7, review | claude-code · opus-5.5 · default | 2026-10-31 |
+| 9 | Board counts hide the night's retries | — | claude-code · sonnet-5.5 · medium | 2026-10-31 |
+| 10 | Last error hides the errors of jobs that recovered | — | claude-code · sonnet-5.5 · medium | 2026-10-31 |
+
+#9 came from review of #5, #10 from review of #2 and #3, not from the plan. #7 was first closed when the
+link was sent, before the reviewer had looked; it was reopened and closed again once the review was in.
+The preview's lane marker came off on 2026-10-31, after the review.
