@@ -10,6 +10,7 @@ export type DigestRow = {
   runs: number;
   retries: number;
   lastStatus: RunStatus;
+  // Latest error on any line of the night, even if the job recovered; null if none.
   lastError: string | null;
   // Times as written in the log, offset kept.
   firstAt: string;
