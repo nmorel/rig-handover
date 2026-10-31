@@ -41,7 +41,7 @@ export function recoverAt(raw: string): string | null {
   return m ? m[1] : null;
 }
 
-// Fold lines into one row per job, sorted by job.
+// Fold lines into one row per job, sorted by job. lastError is the latest error on any line.
 export function fold(lines: Line[]): DigestRow[] {
   const byJob = new Map<string, DigestRow>();
   for (const l of lines) {
@@ -63,7 +63,7 @@ export function fold(lines: Line[]): DigestRow[] {
     row.runs += 1;
     if (l.status === 'retry') row.retries += 1;
     row.lastStatus = l.status;
-    row.lastError = l.error;
+    row.lastError = l.error ?? row.lastError;
     row.lastAt = l.at;
   }
   return [...byJob.values()].sort((a, b) => (a.job < b.job ? -1 : a.job > b.job ? 1 : 0));

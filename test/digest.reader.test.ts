@@ -27,7 +27,7 @@ describe('readNight on runs/2026-10-28.jsonl', () => {
       runs: 4,
       retries: 3,
       lastStatus: 'ok',
-      lastError: null,
+      lastError: 'upstream 503',
       firstAt: '2026-10-29T01:30:00+01:00',
       lastAt: '2026-10-29T01:37:00+01:00',
     });
@@ -36,6 +36,13 @@ describe('readNight on runs/2026-10-28.jsonl', () => {
   it('keeps the last error of a failed job', () => {
     const row = night?.rows.find((r) => r.job === 'notes/backup');
     expect(row).toMatchObject({ lastStatus: 'fail', lastError: 'quota exceeded' });
+  });
+
+  it('keeps the error of a job that recovered, and null when it never erred', () => {
+    const by = (job: string) => night?.rows.find((r) => r.job === job);
+    expect(by('lane/sync')).toMatchObject({ lastStatus: 'ok', lastError: 'lock held' });
+    expect(by('rig/rotate-logs')?.lastError).toBeNull();
+    expect(by('digest/render')?.lastError).toBeNull();
   });
 
   it('keeps a row whose owner is null, and lines past midnight', () => {
