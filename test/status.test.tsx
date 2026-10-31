@@ -14,6 +14,12 @@ describe('status board', () => {
     expect(html).toContain('href="/digest/2026-10-28"');
   });
 
+  it('says what is counted for each night', async () => {
+    const html = await (await createApp(config).request('/')).text();
+    expect(html).toContain('5 jobs · 4 ok · 1 fail · 4 retries · 1 unreadable');
+    expect(html).toContain('4 jobs · 4 ok<');
+  });
+
   it('health answers with the lane id', async () => {
     const res = await createApp(config).request('/health');
     expect(await res.json()).toEqual({ ok: true, lane: 'lane-07' });

@@ -1,3 +1,4 @@
+import { countsLine } from '../digest/counts.js';
 import type { Status } from '../status.js';
 
 export function StatusBoard({ status }: { status: Status }) {
@@ -23,10 +24,7 @@ export function StatusBoard({ status }: { status: Status }) {
             <li>
               <a href={`/digest/${n.night}`}>{n.night}</a>{' '}
               {n.counts ? (
-                <span class="mute">
-                  ok {n.counts.ok} · retry {n.counts.retry} · fail {n.counts.fail}
-                  {n.counts.unreadable > 0 ? ` · ${n.counts.unreadable} unreadable` : ''}
-                </span>
+                <span class="mute">{countsLine(n.counts)}</span>
               ) : (
                 <span class="mute">—</span>
               )}
